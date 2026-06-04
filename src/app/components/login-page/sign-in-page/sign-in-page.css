@@ -73,3 +73,8 @@ input:focus {
 .signupText span:hover {
     text-decoration: underline;
 }
+
+.errorMessage{
+    font-size: small;
+    color: rgba(255, 0, 0, 0.779);
+}

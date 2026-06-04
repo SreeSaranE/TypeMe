@@ -8,6 +8,12 @@
             <input type="password" placeholder="Password" [value]="userPassword" (change)="passChange($event)" required>
         </div>
 
+        <div class="errorMessage">
+            <p *ngIf="errorMessage">
+                {{ errorMessage }}
+            </p>
+        </div>
+
         <div>
             <input class="loginButton" type="submit" (click)="addUser()" value="SignUP">
         </div>

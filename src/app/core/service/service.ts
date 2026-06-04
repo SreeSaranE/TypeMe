@@ -51,21 +51,18 @@ export class Service {
   //--------------------------------------------------
   loginUser(userName: string, userPassword: string){
 
-    this.errorMessage.set('');
     const data = localStorage.getItem(userName);
 
     if(!data){
-      this.errorMessage.set("No user found!")
-      return false;
+      return "No user found!";
     }else{
       const user = JSON.parse(data); 
 
       if (userPassword === user.userPassword){
         this.setOk(userName, userPassword, true)
-        return true
+        return ''
       }else{
-        this.errorMessage.set("Password incorrect!")
-        return false;
+        return "Password incorrect!";
       }
     }
   }
@@ -74,13 +71,13 @@ export class Service {
 
   signupUser(userName: string, userPassword: string){
 
-    this.errorMessage.set('');
     const data = localStorage.getItem(userName);
 
     if(!data){
       this.setOk(userName, userPassword, true)
+      return ''
     }else{
-      this.errorMessage.set("User already present!")
+      return "User already present!"
     }
   }
   

@@ -1,5 +1,5 @@
 <section class="loginPage">
-    <form >
+  
         <p id="loginTitle">Login</p>
 
         <div class="inputBox">
@@ -10,9 +10,9 @@
         </div>
 
         <div class="errorMessage">
-            <p *ngIf="service.errorMessage()">
-    {{ service.errorMessage() }}
-    </p>
+            <p *ngIf="errorMessage">
+                {{ errorMessage }}
+            </p>
         </div>
 
         <div>
@@ -25,5 +25,5 @@
                 <span (click)="signupPage()">Signup</span>
             </p>
         </div>
-    </form>
+
 </section>

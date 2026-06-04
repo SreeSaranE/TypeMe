@@ -12,7 +12,7 @@ export class SignInPage {
   
   userName: string = ''
   userPassword: string = ''
-  eMes: string = ''
+  errorMessage: string = ''
 
   constructor(
     public service: Service,
@@ -28,11 +28,14 @@ export class SignInPage {
   }
   
   onClick(){
-    const success = this.service.loginUser(this.userName, this.userPassword)
 
-    if(!success){
-      
+    if (this.userName && this.userPassword){
+      this.errorMessage = this.service.loginUser(this.userName, this.userPassword)
+    }else{
+      this.errorMessage = "Enter Valid Details."
     }
+    
+
     if(this.service.isLoggedIn()){
         this.router.navigate([''])
     }
