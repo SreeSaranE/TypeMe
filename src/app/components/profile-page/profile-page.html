@@ -1,7 +1,22 @@
-<p></p>
+<div class="userName">
+    <p>{{ service.loggedUserName().toUpperCase() }}</p>
+</div>
 
-<button (click)="logoutButton()">Logout</button>
+<div class="content">
 
-<br><br>
+    <div class="item logoutButton">
+        <p>Logout your account.</p>
+        <span (click)="logoutButton()">Logout Account</span>
+    </div>
 
-<button (click)="deleteButton()">Delete Data</button>
+    <div class="item resetPersonals">
+        <p>Resets all your personal bests. You can't undo this.</p>
+        <span (click)="resetButton()">Reset Account</span>
+    </div>
+
+    <div class="item deleteButton">
+        <p>Deletes your account and all data connected to it.</p>
+        <span (click)="deleteButton()">Delete Account</span>
+    </div>
+
+</div>
