@@ -1,0 +1,29 @@
+<section class="loginPage">
+    <form >
+        <p id="loginTitle">Login</p>
+
+        <div class="inputBox">
+            <input type="text" placeholder="Username" [value]="userName" (change)="nameChange($event)" required>
+        </div>
+        <div class="inputBox">
+            <input type="password" placeholder="Password" [value]="userPassword" (change)="passChange($event)" required>
+        </div>
+
+        <div class="errorMessage">
+            <p *ngIf="service.errorMessage()">
+    {{ service.errorMessage() }}
+    </p>
+        </div>
+
+        <div>
+            <input class="loginButton" type="submit" (click)="onClick()" value="Login">
+        </div>
+
+        <div class="signupText">
+            <p>
+                Don't have an account?
+                <span (click)="signupPage()">Signup</span>
+            </p>
+        </div>
+    </form>
+</section>

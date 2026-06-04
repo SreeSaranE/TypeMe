@@ -1,0 +1,14 @@
+<router-outlet></router-outlet>
+
+@if(service.isLoggedIn()){
+    <!-- <app-type-page></app-type-page> -->
+    <app-test-type-page></app-test-type-page>
+}@else{
+    <div class="mainContent">
+        <p id="descriptionText">Improve your typing speed, accuracy, and confidence with interactive typing tests and real-time performance tracking. Practice daily, challenge yourself, and become faster one keystroke at a time.
+        Whether you're a beginner learning the basics or a pro aiming to boost your WPM, our platform helps you grow at your own pace.</p>
+    </div>
+    <div id="loginLink">
+        <a routerLink="/login">Login</a> to start
+    </div>
+}

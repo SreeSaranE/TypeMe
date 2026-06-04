@@ -1,0 +1,21 @@
+<section class="loginPage">
+        <p id="loginTitle">SignUP</p>
+
+        <div class="inputBox">
+            <input type="text" placeholder="Username" [value]="userName" (change)="nameChange($event)" required>
+        </div>
+        <div class="inputBox">
+            <input type="password" placeholder="Password" [value]="userPassword" (change)="passChange($event)" required>
+        </div>
+
+        <div>
+            <input class="loginButton" type="submit" (click)="addUser()" value="SignUP">
+        </div>
+
+        <div class="signupText">
+            <p>
+                Already have an account?
+                <span (click)="loginPage()">Login</span>
+            </p>
+        </div>
+</section>

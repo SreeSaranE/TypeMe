@@ -1,0 +1,22 @@
+.navigationBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+}
+
+#linkList {
+    font-family: 'Bricolage Grotesque', serif;
+    font-size: 1.1rem;
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#titleText{
+    font-family: 'Bricolage Grotesque', serif;
+    font-size: 1.8rem;
+    font-weight: 550;
+}

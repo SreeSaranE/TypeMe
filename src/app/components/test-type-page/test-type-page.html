@@ -1,0 +1,49 @@
+<section class="typingContainer">
+
+    <h1>Typing Test</h1>
+
+    <p class="targetText">
+
+        <span
+            *ngFor="let char of targetText.split(''); let i = index"
+            [class.correct]="i < typedText.length && typedText[i] === char"
+            [class.wrong]="i < typedText.length && typedText[i] !== char"
+            [class.current]="i === typedText.length">
+
+            {{ char }}
+
+        </span>
+
+    </p>
+
+    <input
+        type="text"
+        class="typingInput"
+        placeholder="Start typing..."
+        [value]="typedText"
+        (input)="handleTyping($event)"
+        autofocus
+    >
+
+    <div class="stats">
+
+        <p>
+            Mistakes: {{ mistakes }}
+        </p>
+
+        <p>
+            Typed: {{ typedText.length }}
+            / {{ targetText.length }}
+        </p>
+
+    </div>
+
+    <p
+        *ngIf="isFinished"
+        class="finishedMessage">
+
+        Typing Completed 🎉
+
+    </p>
+
+</section>

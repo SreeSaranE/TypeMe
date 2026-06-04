@@ -1,0 +1,28 @@
+.typingArea {
+    width: 70%;
+    margin: auto;
+    text-align: center;
+}
+
+.targetText {
+    font-size: 2rem;
+    line-height: 2;
+}
+
+.correct {
+    color: green;
+}
+
+.wrong {
+    color: red;
+}
+
+.current {
+    background-color: lightgray;
+}
+
+input {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.2rem;
+}

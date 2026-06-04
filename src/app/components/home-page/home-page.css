@@ -1,0 +1,11 @@
+.mainContent{
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    padding: 4rem 9rem;
+    font-size: 2.0rem;
+}
+
+#loginLink{
+    text-align: center;
+    font-size: 1.5rem;
+}

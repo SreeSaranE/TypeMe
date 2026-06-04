@@ -1,0 +1,18 @@
+<div class="navigationBar">
+  <p id="titleText">TypeME</p>
+  
+  
+  <ul id="linkList">
+    <li><a routerLink="">Home</a></li>
+    <li><a routerLink="stats">Stats</a></li>
+    @if(!service.isLoggedIn()){
+      <li><a routerLink="login">Login</a></li>
+    }@else {
+      <li><a routerLink="profile">{{this.service.loggedUserName()}}</a></li>
+    }
+   </ul>
+</div>
+
+<div class="pageContent">
+  <router-outlet></router-outlet>
+</div>
