@@ -1,5 +1,5 @@
 .typingPage {
-    max-width: 1200px;
+    max-width: 1300px;
     margin: auto;
     padding: 2rem;
 }
@@ -12,10 +12,10 @@
 
 .paragraphBox {
     background: #f1f1f1;
-    padding: 2rem;
+    padding: 1.7rem;
     border-radius: 10px;
     min-height: 140px;
-    font-size: 24px;
+    font-size: 20px;
     line-height: 2;
     margin-bottom: 1rem;
     word-wrap: break-word;
@@ -35,7 +35,7 @@
 }
 
 input {
-    width: 100%;
+    width: 97%;
     padding: 1rem;
     font-size: 18px;
     margin-bottom: 1rem;

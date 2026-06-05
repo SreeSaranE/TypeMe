@@ -20,8 +20,6 @@ export class Service {
       this.isLoggedIn.set(status.loginStatus)
       this.loggedUserName.set(status.userName || '')
     }
-
-
   }
 
   //--------------------------------------------------
