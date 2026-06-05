@@ -9,15 +9,14 @@ import { StatsService } from '../../core/service/stats-service';
   styleUrl: './test-type-page.css',
 })
 export class TestTypePage {
-
   readonly TEST_DURATION = 5;
+  readonly WORD_COUNT = 20;
 
-  // Pool of words
   wordPool = [
-    'time','speed','keyboard','angular','practice','typing','future','screen','mouse','system','random','design','project','simple','focus','learn','coding','result','developer','function','value','string','object','method','service','component','template','button','input','output','internet','browser','monitor','software','engine','science','school','energy',
-    'people','computer','window','yellow','orange','planet','nature','garden','winter','summer','morning','evening','travel','market','family','friend','coffee','mobile','signal','network','memory','storage','banana','library','feature','student','teacher','chapter','testing','progress','beauty','mountain','success','problem','solution',
-    'creative','history','freedom','culture','football','cricket','village','country','holiday','message','support','example','improve','quality','language','website','backend','frontend','database','correct','mistake','accuracy','performance','timer','challenge','technology','framework','typescript','javascript','modern','application','interface','responsive','security','efficient','powerful','education'
-  ];
+  'time','speed','keyboard','angular','practice','typing','future','screen','mouse','system','random','design','project','simple','focus','learn','coding','result','developer','function','value','string','object','method','service','component','template','button','input','output','internet','browser','monitor','software','engine','science',
+  'school','energy','people','computer','window','yellow','orange','planet','nature','garden','winter','summer','morning','evening','travel','market','family','friend','coffee','mobile','signal','network','memory','storage','banana','library','feature','student','teacher','chapter','testing','progress','beauty','mountain','success',
+  'problem','solution','creative','history','freedom','culture','football','cricket','village','country','holiday','message','support','example','improve','quality','language','website','backend','frontend','database','correct','mistake','accuracy','performance','timer','challenge','technology','framework','typescript','javascript','modern','application','interface','responsive','security','efficient','powerful','education'
+];
 
   generatedText = '';
   typedText = '';
@@ -31,23 +30,27 @@ export class TestTypePage {
 
   correctCharacters = 0;
 
-  constructor(
-    private statsService: StatsService
-  ) {
+  constructor(private statsService: StatsService) {
     this.generateWords();
   }
 
-  // Generate 50 random words
+  //--------------------------------------------------
+
   generateWords() {
     this.generatedText = Array.from(
-      { length: 20 },
-      () => this.wordPool[
-        Math.floor(Math.random() * this.wordPool.length)
-      ]
+      { length: this.WORD_COUNT },
+      () => this.getRandomWord()
     ).join(' ');
   }
 
-  // Start timer
+  private getRandomWord(): string {
+    return this.wordPool[
+      Math.floor(Math.random() * this.wordPool.length)
+    ];
+  }
+
+  //--------------------------------------------------
+
   startTimer() {
     this.timerInterval = setInterval(() => {
       this.timer--;
@@ -58,22 +61,17 @@ export class TestTypePage {
     }, 1000);
   }
 
-  // Typing event
   onTyping(event: Event) {
     if (this.isFinished) {
-      this.statsService.addStats(
-        (Math.floor(Date.now() / 1000)),
-        this.getWPM(),
-        this.getAccuracy()
-      )
-      return};
+      this.saveStats();
+      return;
+    }
 
     const input = event.target as HTMLInputElement;
 
     this.typedText = input.value;
     this.currentIndex = this.typedText.length;
 
-    // Start timer on first key press
     if (!this.isStarted && this.typedText.length) {
       this.isStarted = true;
       this.startTimer();
@@ -82,16 +80,23 @@ export class TestTypePage {
     this.checkCorrectCharacters();
   }
 
-  // Compare typed text
+  //--------------------------------------------------
+
+  private saveStats() {
+    this.statsService.addStats(
+      Math.floor(Date.now() / 1000),
+      this.getWPM(),
+      this.getAccuracy()
+    );
+  }
+
   checkCorrectCharacters() {
     this.correctCharacters = [...this.typedText]
       .filter((char, i) => char === this.generatedText[i])
       .length;
   }
 
-  // Character styling
   getCharacterClass(index: number): string {
-
     if (index < this.typedText.length) {
       return this.typedText[index] === this.generatedText[index]
         ? 'correct'
@@ -103,45 +108,48 @@ export class TestTypePage {
       : '';
   }
 
-  // Calculate WPM
-  getWPM(): number {
+  //--------------------------------------------------
 
+  getWPM(): number {
     const timeSpent =
       (this.TEST_DURATION - this.timer) / 60;
 
-    if (timeSpent <= 0) {
-      return 0;
-    }
-
-    return Math.round(
-      (this.correctCharacters / 5) /
-      timeSpent
-    );
+    return timeSpent <= 0
+      ? 0
+      : Math.round(
+          (this.correctCharacters / 5) / timeSpent
+        );
   }
 
-  // Accuracy
   getAccuracy(): number {
-
-    if (!this.typedText.length) {
-      return 100;
-    }
-
-    return Math.round(
-      (this.correctCharacters /
-        this.typedText.length) * 100
-    );
+    return !this.typedText.length
+      ? 100
+      : Math.round(
+          (this.correctCharacters /
+            this.typedText.length) * 100
+        );
   }
 
-  // Finish test
+  //--------------------------------------------------
+
   finishTest() {
-    clearInterval(this.timerInterval);
+    this.clearTimer();
     this.isFinished = true;
   }
 
-  // Restart
   restartTest() {
-    clearInterval(this.timerInterval);
+    this.clearTimer();
+    this.resetState();
+    this.generateWords();
+  }
 
+  //--------------------------------------------------
+
+  private clearTimer() {
+    clearInterval(this.timerInterval);
+  }
+
+  private resetState() {
     this.typedText = '';
     this.currentIndex = 0;
     this.timer = this.TEST_DURATION;
@@ -149,7 +157,5 @@ export class TestTypePage {
     this.isStarted = false;
     this.isFinished = false;
     this.correctCharacters = 0;
-
-    this.generateWords();
   }
 }

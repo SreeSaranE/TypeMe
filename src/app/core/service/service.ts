@@ -36,6 +36,7 @@ export class Service {
     const storeData = {
       userName,
       userPassword,
+      userStats: {}
     }
     localStorage.setItem(userName, JSON.stringify(storeData))
 

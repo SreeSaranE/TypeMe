@@ -1,14 +1,52 @@
 <div class="mainContent">
+
     @if (service.isLoggedIn()) {
-        <p>Stats shows cause of login</p>
-    }@else {
-        
-        <svg xmlns="http://w3.org" width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <h2>Your Typing Stats</h2>
+        @if (statsArray().length > 0) {
+            <table class="statsTable">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>WPM</th>
+                        <th>Accuracy</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (stat of statsArray(); track stat.timestamp) {
+                        <tr>
+                            <td>{{ stat.date }}</td>
+                            <td>{{ stat.wpm }}</td>
+                            <td>{{ stat.accuracy }}%</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        } @else {
+            <p>No typing stats yet.</p>
+        }
+    } @else {
+        <svg xmlns="http://www.w3.org/2000/svg"
+            width="35"
+            height="35"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round">
+
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+
         </svg>
 
-    <p id="tellLogin"><a id="loginLink" routerLink="/login">Login</a> to unlock your complete typing statistics and track your progress over time. View detailed performance insights, including speed trends, accuracy, practice history, and personal achievements. Sign in now to access your full stats and improve your typing skills with a personalized experience.
-    </p>
+        <p id="tellLogin">
+            <a id="loginLink" routerLink="/login">
+                Login
+            </a>
+            to unlock your complete typing statistics and track your progress over time.
+        </p>
+
     }
+
 </div>

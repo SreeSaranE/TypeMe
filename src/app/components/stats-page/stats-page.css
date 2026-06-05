@@ -1,6 +1,24 @@
-.mainContent{
+.mainContent {
+    padding: 2rem;
+}
+
+.statsTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.statsTable th,
+.statsTable td {
+    border: 1px solid #ddd;
+    padding: 12px;
     text-align: center;
-    font-family: 'Playfair Display', serif;
-    padding: 4rem 9rem;
-    font-size: 2.0rem;
+}
+
+.statsTable th {
+    font-weight: bold;
+}
+
+.statsTable tr:hover {
+    background: #f5f5f5;
 }
