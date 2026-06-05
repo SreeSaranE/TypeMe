@@ -1,12 +1,24 @@
-.typingArea {
-    width: 70%;
+.typingPage {
+    max-width: 1200px;
     margin: auto;
-    text-align: center;
+    padding: 2rem;
 }
 
-.targetText {
-    font-size: 2rem;
+.topBar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.paragraphBox {
+    background: #f1f1f1;
+    padding: 2rem;
+    border-radius: 10px;
+    min-height: 140px;
+    font-size: 24px;
     line-height: 2;
+    margin-bottom: 1rem;
+    word-wrap: break-word;
 }
 
 .correct {
@@ -18,11 +30,24 @@
 }
 
 .current {
-    background-color: lightgray;
+    background: lightgray;
+    border-radius: 4px;
 }
 
 input {
     width: 100%;
     padding: 1rem;
-    font-size: 1.2rem;
+    font-size: 18px;
+    margin-bottom: 1rem;
+}
+
+button {
+    padding: 0.8rem 1.5rem;
+    cursor: pointer;
+}
+
+.resultBox {
+    margin-top: 2rem;
+    border-top: 1px solid #ccc;
+    padding-top: 1rem;
 }

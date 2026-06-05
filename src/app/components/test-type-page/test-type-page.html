@@ -1,49 +1,44 @@
-<section class="typingContainer">
+<section class="typingPage">
 
-    <h1>Typing Test</h1>
+    <div class="topBar">
+        <p>Time: {{ timer }}s</p>
+        <p>WPM: {{ getWPM() }}</p>
+    </div>
 
-    <p class="targetText">
+    <div class="paragraphBox">
 
         <span
-            *ngFor="let char of targetText.split(''); let i = index"
-            [class.correct]="i < typedText.length && typedText[i] === char"
-            [class.wrong]="i < typedText.length && typedText[i] !== char"
-            [class.current]="i === typedText.length">
-
-            {{ char }}
-
+            *ngFor="
+                let char of generatedText.split('');
+                let i = index
+            "
+            [ngClass]="getCharacterClass(i)"
+        >
+            {{ char === ' ' ? '\u00A0' : char }}
         </span>
-
-    </p>
-
-    <input
-        type="text"
-        class="typingInput"
-        placeholder="Start typing..."
-        [value]="typedText"
-        (input)="handleTyping($event)"
-        autofocus
-    >
-
-    <div class="stats">
-
-        <p>
-            Mistakes: {{ mistakes }}
-        </p>
-
-        <p>
-            Typed: {{ typedText.length }}
-            / {{ targetText.length }}
-        </p>
 
     </div>
 
-    <p
-        *ngIf="isFinished"
-        class="finishedMessage">
+    <input
+        type="text"
+        [value]="typedText"
+        (input)="onTyping($event)"
+        [disabled]="isFinished"
+        placeholder="Start typing..."
+    >
 
-        Typing Completed 🎉
+    <button (click)="restartTest()">
+        Restart
+    </button>
 
-    </p>
+    <div *ngIf="isFinished" class="resultBox">
+
+        <h2>Result</h2>
+
+        <p>Accuracy: {{ getAccuracy() }}%</p>
+
+        <p>WPM: {{ getWPM() }}</p>
+
+    </div>
 
 </section>
