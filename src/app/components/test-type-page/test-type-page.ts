@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { StatsService } from '../../core/service/stats-service';
 
 @Component({
   selector: 'app-test-type-page',
@@ -9,7 +10,7 @@ import { CommonModule } from '@angular/common';
 })
 export class TestTypePage {
 
-  readonly TEST_DURATION = 30;
+  readonly TEST_DURATION = 5;
 
   // Pool of words
   wordPool = [
@@ -30,14 +31,16 @@ export class TestTypePage {
 
   correctCharacters = 0;
 
-  constructor() {
+  constructor(
+    private statsService: StatsService
+  ) {
     this.generateWords();
   }
 
   // Generate 50 random words
   generateWords() {
     this.generatedText = Array.from(
-      { length: 50 },
+      { length: 20 },
       () => this.wordPool[
         Math.floor(Math.random() * this.wordPool.length)
       ]
@@ -57,7 +60,13 @@ export class TestTypePage {
 
   // Typing event
   onTyping(event: Event) {
-    if (this.isFinished) return;
+    if (this.isFinished) {
+      this.statsService.addStats(
+        (Math.floor(Date.now() / 1000)),
+        this.getWPM(),
+        this.getAccuracy()
+      )
+      return};
 
     const input = event.target as HTMLInputElement;
 

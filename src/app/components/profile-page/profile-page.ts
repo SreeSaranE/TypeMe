@@ -56,7 +56,9 @@ export class ProfilePage {
   }
 
   confirmDelete(){
-    this.service.delete();
+    this.service.deleteUser();
     this.router.navigate(['/login']);
   }
+
+  
 }

@@ -8,7 +8,6 @@ export class Service {
   loggedUserName = signal<string>('')
   isLoggedIn = signal<boolean>(false);
   showLoginPage = signal<boolean>(true);
-
   errorMessage = signal<string>('')
 
   constructor(){
@@ -21,6 +20,8 @@ export class Service {
       this.isLoggedIn.set(status.loginStatus)
       this.loggedUserName.set(status.userName || '')
     }
+
+
   }
 
   //--------------------------------------------------
@@ -31,14 +32,19 @@ export class Service {
 
   //--------------------------------------------------
 
-  setOk(userName: string, userPassword: string, loginStatus: boolean){
+  saveUserAndLogin(userName: string, userPassword: string, loginStatus: boolean){
     const storeData = {
       userName,
       userPassword,
-      loginStatus
     }
     localStorage.setItem(userName, JSON.stringify(storeData))
 
+    this.updateLogin(userName, loginStatus)
+  }
+
+  //--------------------------------------------------
+
+  updateLogin(userName: string, loginStatus: boolean){
     const storeStatus = {
       userName,
       loginStatus
@@ -60,7 +66,7 @@ export class Service {
       const user = JSON.parse(data); 
 
       if (userPassword === user.userPassword){
-        this.setOk(userName, userPassword, true)
+        this.updateLogin(userName, true)
         return ''
       }else{
         return "Password incorrect!";
@@ -75,7 +81,7 @@ export class Service {
     const data = localStorage.getItem(userName);
 
     if(!data){
-      this.setOk(userName, userPassword, true)
+      this.saveUserAndLogin(userName, userPassword, true)
       return ''
     }else{
       return "User already present!"
@@ -97,7 +103,7 @@ export class Service {
     this.showLoginPage.set(true);
   }
 
-  delete(){
+  deleteUser(){
     localStorage.removeItem(this.loggedUserName());
     this.logout();
   }
