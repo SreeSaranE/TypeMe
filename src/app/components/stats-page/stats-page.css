@@ -1,7 +1,12 @@
 .mainContent {
-    padding: 2rem;
+    padding: 0 5vw;
 }
 
+#headText {
+    text-align: center;
+    font-size: 2rem;
+    font-family: 'Bricolage Grotesque', serif;
+}
 .statsTable {
     width: 100%;
     border-collapse: collapse;
@@ -21,4 +26,10 @@
 
 .statsTable tr:hover {
     background: #f5f5f5;
+}
+
+.tellLogin{
+    text-align: center;
+    padding-top: 100px;
+    font-size: 1.2rem;
 }

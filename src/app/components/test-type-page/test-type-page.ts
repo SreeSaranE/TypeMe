@@ -13,12 +13,20 @@ export class TestTypePage {
   readonly WORD_COUNT = 50;
 
   wordPool = [
-  'time','speed','keyboard','angular','practice','typing','future','screen','mouse','system','random','design','project','simple','focus','learn','coding','result','developer','function','value','string','object','method','service','component','template','button','input','output','internet','browser','monitor','software','engine','science',
-  'school','energy','people','computer','window','yellow','orange','planet','nature','garden','winter','summer','morning','evening','travel','market','family','friend','coffee','mobile','signal','network','memory','storage','banana','library','feature','student','teacher','chapter','testing','progress','beauty','mountain','success',
-  'problem','solution','creative','history','freedom','culture','football','cricket','village','country','holiday','message','support','example','improve','quality','language','website','backend','frontend','database','correct','mistake','accuracy','performance','timer','challenge','technology','framework','typescript','javascript','modern','application','interface','responsive','security','efficient','powerful','education'
-];
+    'time','speed','keyboard','angular','practice','typing','future','screen', 'mouse','system','random','design','project','simple','focus','learn',
+    'coding','result','developer','function','value','string','object', 'method','service','component','template','button','input','output',
+    'internet','browser','monitor','software','engine','science', 'school','energy','people','computer','window','yellow','orange',
+    'planet','nature','garden','winter','summer','morning','evening', 'travel','market','family','friend','coffee','mobile','signal',
+    'network','memory','storage','banana','library','feature','student', 'teacher','chapter','testing','progress','beauty','mountain',
+    'success','problem','solution','creative','history','freedom', 'culture','football','cricket','village','country','holiday',
+    'message','support','example','improve','quality','language', 'website','backend','frontend','database','correct','mistake',
+    'accuracy','performance','timer','challenge','technology', 'framework','typescript','javascript','modern','application',
+    'interface','responsive','security','efficient','powerful', 'education'
+  ];
 
+  words: string[] = [];
   generatedText = '';
+
   typedText = '';
   currentIndex = 0;
 
@@ -30,19 +38,19 @@ export class TestTypePage {
 
   correctCharacters = 0;
 
-  constructor(
-    private statsService: StatsService
-  ) {
+  constructor(private statsService: StatsService) {
     this.generateWords();
   }
 
   //--------------------------------------------------
 
   generateWords() {
-    this.generatedText = Array.from(
+    this.words = Array.from(
       { length: this.WORD_COUNT },
       () => this.getRandomWord()
-    ).join(' ');
+    );
+
+    this.generatedText = this.words.join(' ');
   }
 
   private getRandomWord(): string {
@@ -53,19 +61,8 @@ export class TestTypePage {
 
   //--------------------------------------------------
 
-  startTimer() {
-    this.timerInterval = setInterval(() => {
-      this.timer--;
-
-      if (this.timer <= 0) {
-        this.finishTest();
-      }
-    }, 1000);
-  }
-
   onTyping(event: Event) {
     if (this.isFinished) {
-      this.saveStats();
       return;
     }
 
@@ -80,6 +77,16 @@ export class TestTypePage {
     }
 
     this.checkCorrectCharacters();
+  }
+
+  startTimer() {
+    this.timerInterval = setInterval(() => {
+      this.timer--;
+
+      if (this.timer <= 0) {
+        this.finishTest();
+      }
+    }, 1000);
   }
 
   //--------------------------------------------------
@@ -110,6 +117,23 @@ export class TestTypePage {
       : '';
   }
 
+  /**
+   * Converts word index + character index
+   * into index inside generatedText
+   */
+  getGlobalIndex(
+    wordIndex: number,
+    charIndex: number
+  ): number {
+    let index = 0;
+
+    for (let i = 0; i < wordIndex; i++) {
+      index += this.words[i].length + 1; // space
+    }
+
+    return index + charIndex;
+  }
+
   //--------------------------------------------------
 
   getWPM(): number {
@@ -137,6 +161,8 @@ export class TestTypePage {
   finishTest() {
     this.clearTimer();
     this.isFinished = true;
+
+    this.saveStats();
   }
 
   restartTest() {

@@ -18,7 +18,15 @@
     font-size: 20px;
     line-height: 2;
     margin-bottom: 1rem;
-    word-wrap: break-word;
+
+    /* Optional */
+    overflow-wrap: break-word;
+}
+
+/* NEW */
+.word {
+    display: inline-block;
+    white-space: nowrap;
 }
 
 .correct {
@@ -51,3 +59,4 @@ button {
     border-top: 1px solid #ccc;
     padding-top: 1rem;
 }
+

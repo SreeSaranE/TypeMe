@@ -7,15 +7,36 @@
 
     <div class="paragraphBox">
 
-        <span
-            *ngFor="
-                let char of generatedText.split('');
-                let i = index
-            "
-            [ngClass]="getCharacterClass(i)"
+        <ng-container
+            *ngFor="let word of words; let wordIndex = index"
         >
-            {{ char === ' ' ? '\u00A0' : char }}
-        </span>
+
+            <span class="word">
+
+                <span
+                    *ngFor="
+                        let char of word.split('');
+                        let charIndex = index
+                    "
+                    [ngClass]="
+                        getCharacterClass(
+                            getGlobalIndex(
+                                wordIndex,
+                                charIndex
+                            )
+                        )
+                    "
+                >
+                    {{ char }}
+                </span>
+
+                <span class="space">&nbsp;</span>
+                <span class="space">&nbsp;</span>
+                <span class="space">&nbsp;</span>
+
+            </span>
+
+        </ng-container>
 
     </div>
 
@@ -31,7 +52,10 @@
         Restart
     </button>
 
-    <div *ngIf="isFinished" class="resultBox">
+    <div
+        *ngIf="isFinished"
+        class="resultBox"
+    >
 
         <h2>Result</h2>
         <p>Accuracy: {{ getAccuracy() }}%</p>

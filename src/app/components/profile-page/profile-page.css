@@ -16,7 +16,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 5rem;
+    padding: 20px 7vw;
     border-bottom: 1px solid #ffffff20;
 }
 
@@ -37,7 +37,8 @@ span {
     font-size: medium;
 
     /* Same size for all */
-    width: 220px;
+    /* width: 220px; */
+    width: 15vw;
     text-align: center;
     display: inline-block;
     box-sizing: border-box;
