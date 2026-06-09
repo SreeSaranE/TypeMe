@@ -23,7 +23,6 @@
     overflow-wrap: break-word;
 }
 
-/* NEW */
 .word {
     display: inline-block;
     white-space: nowrap;
@@ -59,4 +58,3 @@ button {
     border-top: 1px solid #ccc;
     padding-top: 1rem;
 }
-

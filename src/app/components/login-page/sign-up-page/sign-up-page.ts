@@ -37,11 +37,9 @@ export class SignUpPage {
     }else{
       this.errorMessage = 'Enter valid Details'
     }
-    
   }
 
   loginPage(){
     this.service.alterLogin()
   }
 }
-

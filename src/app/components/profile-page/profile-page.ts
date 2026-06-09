@@ -46,7 +46,6 @@ export class ProfilePage {
   }
 
   //--------------------------------------------------
-  // Reusable function
 
   private showConfirm(message: string, action: () => void) {
     if (confirm(message)) {

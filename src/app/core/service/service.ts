@@ -30,6 +30,18 @@ export class Service {
 
   //--------------------------------------------------
 
+  signupUser(userName: string, userPassword: string){
+
+    const data = localStorage.getItem(userName);
+
+    if(!data){
+      this.saveUserAndLogin(userName, userPassword, true)
+      return ''
+    }else{
+      return "User already present!"
+    }
+  }
+
   saveUserAndLogin(userName: string, userPassword: string, loginStatus: boolean){
     const storeData = {
       userName,
@@ -73,20 +85,6 @@ export class Service {
     }
   }
 
-  //--------------------------------------------------
-
-  signupUser(userName: string, userPassword: string){
-
-    const data = localStorage.getItem(userName);
-
-    if(!data){
-      this.saveUserAndLogin(userName, userPassword, true)
-      return ''
-    }else{
-      return "User already present!"
-    }
-  }
-  
   //--------------------------------------------------
 
   logout(){

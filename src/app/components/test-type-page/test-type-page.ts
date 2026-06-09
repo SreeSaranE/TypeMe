@@ -15,10 +15,10 @@ export class TestTypePage {
   wordPool = [
     'time','speed','keyboard','angular','practice','typing','future','screen', 'mouse','system','random','design','project','simple','focus','learn',
     'coding','result','developer','function','value','string','object', 'method','service','component','template','button','input','output',
-    'internet','browser','monitor','software','engine','science', 'school','energy','people','computer','window','yellow','orange',
-    'planet','nature','garden','winter','summer','morning','evening', 'travel','market','family','friend','coffee','mobile','signal',
-    'network','memory','storage','banana','library','feature','student', 'teacher','chapter','testing','progress','beauty','mountain',
-    'success','problem','solution','creative','history','freedom', 'culture','football','cricket','village','country','holiday',
+    'internet','browser','monitor','software','engine','science', 'school','energy','people','computer','window','yellow','orange','planet','nature',
+    'garden','winter','summer','morning','evening', 'travel','market','family','friend','coffee','mobile','signal','network','memory','storage',
+    'banana','library','feature','student', 'teacher','chapter','testing','progress','beauty','mountain','success','problem','solution','creative',
+    'history','freedom', 'culture','football','cricket','village','country','holiday',
     'message','support','example','improve','quality','language', 'website','backend','frontend','database','correct','mistake',
     'accuracy','performance','timer','challenge','technology', 'framework','typescript','javascript','modern','application',
     'interface','responsive','security','efficient','powerful', 'education'
@@ -89,6 +89,13 @@ export class TestTypePage {
     }, 1000);
   }
 
+  finishTest() {
+    this.clearTimer();
+    this.isFinished = true;
+
+    this.saveStats();
+  }
+
   //--------------------------------------------------
 
   private saveStats() {
@@ -157,13 +164,6 @@ export class TestTypePage {
   }
 
   //--------------------------------------------------
-
-  finishTest() {
-    this.clearTimer();
-    this.isFinished = true;
-
-    this.saveStats();
-  }
 
   restartTest() {
     this.clearTimer();
