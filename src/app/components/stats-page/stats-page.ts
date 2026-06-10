@@ -120,9 +120,9 @@ export class StatsPage {
               label: 'WPM',
               data: stats.map(s => s.wpm),
               borderColor: '#4f46e5',
-              backgroundColor: 'rgba(79,70,229,0.2)',
               tension: 0.3,
-              fill: true
+              fill: true,
+              
             }
           ]
         }
@@ -140,7 +140,6 @@ export class StatsPage {
               label: 'Accuracy (%)',
               data: stats.map(s => s.accuracy),
               borderColor: '#16a34a',
-              backgroundColor: 'rgba(22,163,74,0.2)',
               tension: 0.3,
               fill: true
             }
