@@ -1,11 +1,79 @@
-#title{
-    text-align: center;
-    font-family: 'Bricolage Grotesque', serif;
-    font-size: 1.2rem;
+.typingPage {
+    max-width: 1300px;
+    margin: auto;
+    padding: 2rem;
 }
 
-#content{
-    text-align: center;
-    padding: 50px 30px;
-    font-size: 1.2rem;
+.topBar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.paragraphBox {
+    background: #f1f1f1;
+    padding: 1.7rem;
+    border-radius: 10px;
+    min-height: 140px;
+    font-size: 20px;
+    line-height: 2;
+    margin-bottom: 1rem;
+
+    /* Optional */
+    overflow-wrap: break-word;
+}
+
+.word {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.correct {
+    color: green;
+}
+
+.wrong {
+    color: red;
+}
+
+.current {
+    background: lightgray;
+    border-radius: 4px;
+}
+
+input {
+    width: 97%;
+    padding: 1rem;
+    font-size: 18px;
+    margin-bottom: 1rem;
+}
+
+button {
+    padding: 0.8rem 1.5rem;
+    cursor: pointer;
+}
+
+.resultBox {
+    margin-top: 2rem;
+    border-top: 1px solid #ccc;
+    padding-top: 1rem;
+}
+
+.sameBox {
+    position: relative;
+    cursor: text;
+}
+
+.hiddenInput {
+    position: absolute;
+
+    opacity: 0;
+
+    left: 0;
+    top: 0;
+
+    width: 1px;
+    height: 1px;
+
+    pointer-events: none;
 }

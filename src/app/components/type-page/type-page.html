@@ -1,3 +1,71 @@
-<p id="title">type-page works!</p>
+<section class="typingPage">
 
-<p id="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas accusantium voluptas excepturi, ab, neque odio nesciunt fugit magni mollitia voluptates autem exercitationem, voluptate adipisci? Inventore provident unde consectetur non accusamus.</p>
+    <div class="topBar">
+        <p>Time: {{ timer }}s</p>
+        <p>WPM: {{ getWPM() }}</p>
+    </div>
+
+    <div
+        class="paragraphBox sameBox"
+        tabindex="0"
+        (click)="typingInput.focus()"
+    >
+
+        <ng-container
+            *ngFor="let word of words; let wordIndex = index">
+
+            <span class="word">
+
+                <span
+                    *ngFor="
+                        let char of word.split('');
+                        let charIndex = index
+                    "
+                    [ngClass]="
+                        getCharacterClass(
+                            getGlobalIndex(wordIndex, charIndex)
+                        )
+                    "
+                >
+                    {{ char }}
+                </span>
+
+                <span class="space">&nbsp;</span>
+                <span class="space">&nbsp;</span>
+                <span class="space">&nbsp;</span>
+
+            </span>
+
+        </ng-container>
+
+        <input
+            #typingInput
+            class="hiddenInput"
+            type="text"
+            [value]="typedText"
+            (input)="onTyping($event)"
+            [disabled]="isFinished"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+        >
+
+    </div>
+
+    <button (click)="restartTest()">
+        Restart
+    </button>
+
+    <div
+        *ngIf="isFinished"
+        class="resultBox"
+    >
+
+        <h2>Result</h2>
+        <p>Accuracy: {{ getAccuracy() }}%</p>
+        <p>WPM: {{ getWPM() }}</p>
+
+    </div>
+
+</section>
