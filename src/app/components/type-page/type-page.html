@@ -1,71 +1,99 @@
 <section class="typingPage">
 
-    <div class="topBar">
-        <p>Time: {{ timer }}s</p>
-        <p>WPM: {{ getWPM() }}</p>
-    </div>
+    <!-- TYPING SCREEN -->
+    <ng-container *ngIf="!isFinished">
 
-    <div
-        class="paragraphBox sameBox"
-        tabindex="0"
-        (click)="typingInput.focus()"
-    >
+        <div class="topBar">
+            <p>Time: {{ timer }}s</p>
+            <p>WPM: {{ getWPM() }}</p>
+        </div>
 
-        <ng-container
-            *ngFor="let word of words; let wordIndex = index">
-
-            <span class="word">
-
-                <span
-                    *ngFor="
-                        let char of word.split('');
-                        let charIndex = index
-                    "
-                    [ngClass]="
-                        getCharacterClass(
-                            getGlobalIndex(wordIndex, charIndex)
-                        )
-                    "
-                >
-                    {{ char }}
-                </span>
-
-                <span class="space">&nbsp;</span>
-                <span class="space">&nbsp;</span>
-                <span class="space">&nbsp;</span>
-
-            </span>
-
-        </ng-container>
-
-        <input
-            #typingInput
-            class="hiddenInput"
-            type="text"
-            [value]="typedText"
-            (input)="onTyping($event)"
-            [disabled]="isFinished"
-            autocomplete="off"
-            autocorrect="off"
-            autocapitalize="off"
-            spellcheck="false"
+        <div
+            class="paragraphBox sameBox"
+            tabindex="0"
+            (click)="typingInput.focus()"
         >
 
-    </div>
+            <ng-container
+                *ngFor="let word of words; let wordIndex = index">
 
-    <button (click)="restartTest()">
-        Restart
-    </button>
+                <span class="word">
 
-    <div
-        *ngIf="isFinished"
-        class="resultBox"
-    >
+                    <span
+                        *ngFor="
+                            let char of word.split('');
+                            let charIndex = index
+                        "
+                        [ngClass]="
+                            getCharacterClass(
+                                getGlobalIndex(wordIndex, charIndex)
+                            )
+                        "
+                    >
+                        {{ char }}
+                    </span>
 
-        <h2>Result</h2>
-        <p>Accuracy: {{ getAccuracy() }}%</p>
-        <p>WPM: {{ getWPM() }}</p>
+                    <span class="space">&nbsp;&nbsp;&nbsp;</span>
 
-    </div>
+                </span>
+
+            </ng-container>
+
+            <input
+                #typingInput
+                class="hiddenInput"
+                type="text"
+                [value]="typedText"
+                (input)="onTyping($event)"
+                [disabled]="isFinished"
+                autocomplete="off"
+                autocorrect="off"
+                autocapitalize="off"
+                spellcheck="false"
+            >
+
+        </div>
+
+        <button (click)="restartTest()">
+            Restart
+        </button>
+
+    </ng-container>
+
+
+    <!-- RESULT SCREEN -->
+    <ng-container *ngIf="isFinished">
+
+        <div class="resultPage">
+
+            <h1>Results</h1>
+
+            <div class="resultStat">
+                <span class="resultNumber">
+                    {{ getWPM() }}
+                </span>
+
+                <span class="resultLabel">
+                    WPM
+                </span>
+            </div>
+
+            <div class="resultStat">
+                <span class="resultNumber">
+                    {{ getAccuracy() }}%
+                </span>
+
+                <span class="resultLabel">
+                    Accuracy
+                </span>
+            </div>
+
+            <button (click)="restartTest()">
+                Try Again
+            </button>
+
+        </div>
+
+    </ng-container>
 
 </section>

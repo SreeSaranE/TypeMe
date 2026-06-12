@@ -2,6 +2,7 @@
     max-width: 1300px;
     margin: auto;
     padding: 2rem;
+    
 }
 
 .topBar {
@@ -11,11 +12,12 @@
 }
 
 .paragraphBox {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     background: #f1f1f1;
-    padding: 1.7rem;
+    padding: 2.0vw;
     border-radius: 10px;
     min-height: 140px;
-    font-size: 20px;
+    font-size: 21px;
     line-height: 2;
     margin-bottom: 1rem;
 
@@ -53,11 +55,6 @@ button {
     cursor: pointer;
 }
 
-.resultBox {
-    margin-top: 2rem;
-    border-top: 1px solid #ccc;
-    padding-top: 1rem;
-}
 
 .sameBox {
     position: relative;
@@ -76,4 +73,118 @@ button {
     height: 1px;
 
     pointer-events: none;
+}
+
+
+.resultHeader {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+}
+
+.resultCards {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+
+    margin-bottom: 2rem;
+}
+
+.resultCard {
+    min-width: 180px;
+
+    padding: 1.8rem;
+
+    border-radius: 18px;
+
+    background: white;
+
+    box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.08);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.resultCard:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+.resultValue {
+    font-size: 3rem;
+    font-weight: 800;
+
+    margin-bottom: 0.5rem;
+}
+
+.resultLabel {
+    font-size: 1rem;
+    color: #666;
+
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.restartBtn {
+    padding: 0.9rem 2rem;
+
+    border: none;
+    border-radius: 12px;
+
+    font-size: 1rem;
+    font-weight: 600;
+
+    background: #111827;
+    color: white;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.restartBtn:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+.resultPage {
+    min-height: 60vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+}
+
+.resultPage h1 {
+    margin-bottom: 3rem;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.resultStat {
+    margin-bottom: 2rem;
+}
+
+.resultNumber {
+    display: block;
+
+    font-size: 4rem;
+    font-weight: 700;
+}
+
+.resultLabel {
+    display: block;
+
+    font-size: 1rem;
+    color: #666;
 }

@@ -20,7 +20,7 @@ export class TypePage implements AfterViewInit {
         this.typingInput.nativeElement.focus();
     }
   
-    readonly TEST_DURATION = 60;
+    readonly TEST_DURATION = 20;
   readonly WORD_COUNT = 50;
 
   wordPool = [
