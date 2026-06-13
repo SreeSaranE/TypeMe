@@ -1,2 +1,6 @@
-"type": "commonjs",
-"type": "module",
+## typeMe
+A typing practice page.
+
+> Note: The page is still in constrution. Any contribution is wellcomed...
+
+Bye Bye...
