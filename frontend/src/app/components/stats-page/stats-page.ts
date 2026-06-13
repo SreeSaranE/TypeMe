@@ -12,7 +12,10 @@ import { RouterLinkWithHref } from '@angular/router';
 import { Chart } from 'chart.js/auto';
 
 import { Service } from '../../core/service/service';
-import { StatsService } from '../../core/service/stats-service';
+import {
+  StatsService,
+  UserStat
+} from '../../core/service/stats-service';
 
 @Component({
   selector: 'app-stats-page',
@@ -37,60 +40,98 @@ export class StatsPage {
   ) {
 
     effect(() => {
+
+      // Track changes in stats
       this.statsArray();
 
       queueMicrotask(() => {
         this.renderCharts();
       });
+
     });
+
   }
+
+  //--------------------------------------------------
+  // Convert backend data into UI-friendly format
 
   statsArray = computed(() => {
 
-    const stats = this.statsService.userStats();
+    return this.statsService.userStats()
+      .map((stat: UserStat) => ({
 
-    return Object.entries(stats)
-      .map(([timestamp, values]) => {
+        id: stat.id,
 
-        const [wpm, accuracy] = values;
+        created_at: stat.created_at,
 
-        return {
-          timestamp: Number(timestamp),
-          date: this.formatDate(Number(timestamp)),
-          wpm,
-          accuracy
-        };
-      })
-      .sort((a, b) => a.timestamp - b.timestamp);
+        date: this.formatDate(stat.created_at),
+
+        wpm: stat.wpm,
+
+        accuracy: stat.accuracy
+
+      }))
+      .sort(
+        (a, b) =>
+          new Date(a.created_at).getTime() -
+          new Date(b.created_at).getTime()
+      );
+
   });
+
+  //--------------------------------------------------
 
   bestWpm = computed(() => {
 
     const stats = this.statsArray();
 
-    if (!stats.length) return 0;
+    if (!stats.length) {
+      return 0;
+    }
 
-    return Math.max(...stats.map(s => s.wpm));
+    return Math.max(
+      ...stats.map(stat => stat.wpm)
+    );
+
   });
+
+  //--------------------------------------------------
 
   averageWpm = computed(() => {
 
     const stats = this.statsArray();
 
-    if (!stats.length) return 0;
+    if (!stats.length) {
+      return 0;
+    }
 
     return Math.round(
-      stats.reduce((sum, s) => sum + s.wpm, 0) / stats.length
+
+      stats.reduce(
+        (sum, stat) => sum + stat.wpm,
+        0
+      ) / stats.length
+
     );
+
   });
 
-  totalTests = computed(() => this.statsArray().length);
+  //--------------------------------------------------
 
-  formatDate(timestamp: number): string {
+  totalTests = computed(() =>
+    this.statsArray().length
+  );
 
-    return new Date(timestamp * 1000)
+  //--------------------------------------------------
+
+  formatDate(dateString: string): string {
+
+    return new Date(dateString)
       .toLocaleDateString();
+
   }
+
+  //--------------------------------------------------
 
   renderCharts() {
 
@@ -101,51 +142,80 @@ export class StatsPage {
     const stats = this.statsArray();
 
     if (!stats.length) {
+
+      this.wpmChart?.destroy();
+      this.accuracyChart?.destroy();
+
       return;
     }
 
-    const labels = stats.map(s => s.date);
+    const labels = stats.map(stat => stat.date);
 
     this.wpmChart?.destroy();
     this.accuracyChart?.destroy();
+
+    //--------------------------------------------------
+    // WPM Chart
 
     this.wpmChart = new Chart(
       this.wpmCanvas.nativeElement,
       {
         type: 'line',
+
         data: {
+
           labels,
+
           datasets: [
             {
               label: 'WPM',
-              data: stats.map(s => s.wpm),
-              borderColor: '#4f46e5',
-              tension: 0.3,
-              fill: true,
-              
-            }
-          ]
-        }
-      }
-    );
 
-    this.accuracyChart = new Chart(
-      this.accuracyCanvas.nativeElement,
-      {
-        type: 'line',
-        data: {
-          labels,
-          datasets: [
-            {
-              label: 'Accuracy (%)',
-              data: stats.map(s => s.accuracy),
-              borderColor: '#16a34a',
+              data: stats.map(
+                stat => stat.wpm
+              ),
+
+              borderColor: '#4f46e5',
+
               tension: 0.3,
+
               fill: true
             }
           ]
         }
       }
     );
+
+    //--------------------------------------------------
+    // Accuracy Chart
+
+    this.accuracyChart = new Chart(
+      this.accuracyCanvas.nativeElement,
+      {
+        type: 'line',
+
+        data: {
+
+          labels,
+
+          datasets: [
+            {
+              label: 'Accuracy (%)',
+
+              data: stats.map(
+                stat => stat.accuracy
+              ),
+
+              borderColor: '#16a34a',
+
+              tension: 0.3,
+
+              fill: true
+            }
+          ]
+        }
+      }
+    );
+
   }
+
 }

@@ -1,15 +1,17 @@
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
+const dotenv = require('dotenv');
 
-const dotenv = require('dotenv')
 dotenv.config();
 
 const app = express();
 
+// Middleware
 app.use(cors());
 app.use(express.json());
 
+// MySQL Connection
 const db = mysql.createConnection({
     host: process.env.MYSQL_HOST,
     user: process.env.MYSQL_USER,
@@ -19,40 +21,53 @@ const db = mysql.createConnection({
 
 db.connect((err) => {
     if (err) {
-        console.log('Database connection failed');
-        console.log(err);
+        console.error('Database connection failed');
+        console.error(err);
         return;
     }
 
     console.log('MySQL Connected');
 });
 
-app.get('/stats', (req, res) => {
+// Root Route
+app.get('/', (req, res) => {
+    res.send('Backend is running');
+});
+
+// Get all stats
+app.get('/stats/:username', (req, res) => {
+
+    const username = req.params.username;
 
     db.query(
-        'SELECT * FROM stats',
+        'SELECT * FROM stats WHERE username = ? ORDER BY created_at',
+        [username],
         (err, results) => {
 
             if (err) {
                 return res.status(500).json(err);
             }
-            console.log(results);
+
             res.json(results);
         }
     );
 
 });
 
+// Save a new stat
 app.post('/stats', (req, res) => {
 
-    const { wpm, accuracy } = req.body;
+    const { username, wpm, accuracy } = req.body;
+
+    console.log(req.body);
 
     db.query(
-        'INSERT INTO stats (wpm, accuracy) VALUES (?, ?)',
-        [wpm, accuracy],
+        'INSERT INTO stats (username, wpm, accuracy) VALUES (?, ?, ?)',
+        [username, wpm, accuracy],
         (err, result) => {
 
             if (err) {
+                console.log(err);
                 return res.status(500).json(err);
             }
 
@@ -60,12 +75,37 @@ app.post('/stats', (req, res) => {
                 message: 'Saved',
                 id: result.insertId
             });
+
         }
     );
 
 });
 
-app.getitem()
-app.listen(3000, () => {
-    console.log('Server running on port 3000');
+// Delete
+app.delete('/stats/:username', (req, res) => {
+
+    const username = req.params.username;
+
+    db.query(
+        'DELETE FROM stats WHERE username = ?',
+        [username],
+        (err) => {
+
+            if (err) {
+                return res.status(500).json(err);
+            }
+
+            res.json({
+                message: 'Stats deleted'
+            });
+        }
+    );
+
+});
+
+// Start Server
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });

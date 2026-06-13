@@ -114,7 +114,6 @@ export class TypePage implements AfterViewInit {
 
   private saveStats() {
     this.statsService.addStats(
-      Math.floor(Date.now() / 1000),
       this.getWPM(),
       this.getAccuracy()
     );
